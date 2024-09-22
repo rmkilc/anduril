@@ -24,13 +24,13 @@
     - PA5 / PP2  - PATH3 - High Range
     - PA6 / PP3  - PATH2 - Low Range
     - PA7 / PP4  - PATH1 - Moon Range
-    - PC1 / PP5  - Enable for Boost, Amplifier 
-    - PC2 / PP6  - Enable for Microphone - N/C 
-    - PC3 / PP7  - Neo Dat - N/C 
-    - PD4 / PP9  - E-Switch 
-    - PD5 / PP10 - Mic Output - N/C 
-    - PD6 / PP11 - DAC Out 
-    - PD7 / PP12 - Power Bank - N/C 
+    - PC1 / PP5  - Enable for Boost, Amplifier
+    - PC2 / PP6  - Enable for Microphone - N/C
+    - PC3 / PP7  - Neo Dat - N/C
+    - PD4 / PP9  - E-Switch
+    - PD5 / PP10 - Mic Output - N/C
+    - PD6 / PP11 - DAC Out
+    - PD7 / PP12 - Power Bank - N/C
     - PA1 / PP18 - AUX R LED
     - PA2 / PP19 - AUX G LED
     - PA3 / PP20 - AUX B LED
@@ -38,7 +38,7 @@
 
 */
 
-#define HWDEF_C  loneoceans/lume-x1-avr32dd20/hwdef.c
+#define HWDEF_C  hank/lume-x1/hwdef.c
 
 // allow using aux LEDs as extra channel modes
 #include "fsm/chan-rgbaux.h"
@@ -80,18 +80,18 @@ enum CHANNEL_MODES {
 #define BST_ON_DELAY 8  // ms delay turning on the led after enable
 
 // Ultra Dynamic Range (UDR)
-/* 
+/*
     UDR makes use of the concept of multiple power paths. 3 are used in this
-    design to achieve extremely low moonlight levels. This is combined with 
+    design to achieve extremely low moonlight levels. This is combined with
     dynamic Vref for smoother brightness level transitions that would
-    normally be limited by the 10-bit DAC resolution. 
+    normally be limited by the 10-bit DAC resolution.
 
-    Lume drivers uses the internal DAC to generate a reference voltage for 
-    a current-regulated amplifier which drives the LED. Each power path 
+    Lume drivers uses the internal DAC to generate a reference voltage for
+    a current-regulated amplifier which drives the LED. Each power path
     routes current through different sense resistors, allowing for improved
     current sense resolution especially at the low end. Using UDR, Lume1/X1
-    is capable of ultra-low firefly / moonlight levels with a dynamic range 
-    on the order of >10-50 million : 1. 
+    is capable of ultra-low firefly / moonlight levels with a dynamic range
+    on the order of >10-50 million : 1.
 */
 
 // For UDR Path 1 (firefly mode) - PA7
@@ -127,7 +127,7 @@ enum CHANNEL_MODES {
 #define AUXLED_B_PORT   PORTA
 
 // if aux leds are on different ports
-#define AUXLED_RGB_DIFFERENT_PORTS 
+#define AUXLED_RGB_DIFFERENT_PORTS
 */
 
 // this light has three aux LED channels: R, G, B
@@ -158,7 +158,7 @@ inline void hwdef_setup() {
     mcu_clock_speed();
 
     // set output pins
-    VPORTA.DIR = PIN1_bm | PIN2_bm | PIN3_bm | 
+    VPORTA.DIR = PIN1_bm | PIN2_bm | PIN3_bm |
                  PIN4_bm | PIN5_bm | PIN6_bm | PIN7_bm;
     VPORTC.DIR = PIN1_bm;
     VPORTD.DIR = PIN6_bm;
@@ -197,7 +197,7 @@ inline void hwdef_setup() {
     
     // Datasheet 34.3.1-2/2: input for DAC must be disabled
     PORTD.PIN6CTRL = PORT_ISC_INPUT_DISABLE_gc;
-    //VREF.CTRLA |= VREF_DAC0REFSEL_2V5_gc; // also VREF_DAC0REFSEL_0V55_gc and VREF_DAC0REFSEL_1V1_gc and VREF_DAC0REFSEL_2V5_gc 
+    //VREF.CTRLA |= VREF_DAC0REFSEL_2V5_gc; // also VREF_DAC0REFSEL_0V55_gc and VREF_DAC0REFSEL_1V1_gc and VREF_DAC0REFSEL_2V5_gc
     //VREF.CTRLB |= VREF_DAC0REFEN_bm;            // enable vref
     DAC_VREF = V10;
     DAC0.CTRLA = DAC_ENABLE_bm | DAC_OUTEN_bm;  // enable DAC
