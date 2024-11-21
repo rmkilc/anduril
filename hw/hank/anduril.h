@@ -28,3 +28,9 @@
 // for consistency with KR4 (not otherwise necessary though)
 #define USE_SOFT_FACTORY_RESET
 
+#define DEFAULT_MANUAL_MEMORY_TIMER 15
+
+#define DEFAULT_AUTOLOCK_TIME 15
+
+#define DEFAULT_MANUAL_MEMORY 70
+
