@@ -42,7 +42,7 @@
 #define USE_THERM_AUTOCALIBRATE
 
 // Include a simplified UI for non-enthusiasts?
-#define USE_SIMPLE_UI
+//#define USE_SIMPLE_UI
 
 
 ///// Ramp mode options /////

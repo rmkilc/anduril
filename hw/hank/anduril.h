@@ -17,10 +17,10 @@
 //#define RGB_RAINBOW_SPEED 0x03
 
 // Allow 3C (or 6C) in Simple UI (toggle smooth or stepped ramping)
-#define USE_SIMPLE_UI_RAMPING_TOGGLE
+//#define USE_SIMPLE_UI_RAMPING_TOGGLE
 
 // allow Aux Config and Strobe Modes in Simple UI
-#define USE_EXTENDED_SIMPLE_UI
+//#define USE_EXTENDED_SIMPLE_UI
 
 // double click while on goes to full-power turbo, not ramp ceiling
 #define DEFAULT_2C_STYLE 1
