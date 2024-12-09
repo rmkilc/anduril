@@ -6,12 +6,12 @@
 #ifdef RGB_LED_OFF_DEFAULT
 #undef RGB_LED_OFF_DEFAULT
 #endif
-#define RGB_LED_OFF_DEFAULT 0x30  // blinking, red
+#define RGB_LED_OFF_DEFAULT 0x70  // high, red
 
 #ifdef RGB_LED_LOCKOUT_DEFAULT
 #undef RGB_LED_LOCKOUT_DEFAULT
 #endif
-#define RGB_LED_LOCKOUT_DEFAULT 0x10  // low, red
+#define RGB_LED_LOCKOUT_DEFAULT 0x00  // off, red
 
 // half a second per color in rainbow mode
 //#define RGB_RAINBOW_SPEED 0x03
