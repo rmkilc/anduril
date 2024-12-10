@@ -33,7 +33,7 @@
 #define HALFSPEED_LEVEL 12
 #define QUARTERSPEED_LEVEL 4
 
-#define RAMP_SMOOTH_FLOOR 10  // low levels may be unreliable
+#define RAMP_SMOOTH_FLOOR 1  // low levels may be unreliable
 #define RAMP_SMOOTH_CEIL  130
 // 10, 30, 50, [70], 90, 110, 130
 #define RAMP_DISCRETE_FLOOR 10
@@ -61,7 +61,13 @@
 
 // there is usually no lighted button, so
 // blink numbers on the main LEDs by default (but allow user to change it)
-#define DEFAULT_BLINK_CHANNEL  CM_MAIN
+#define DEFAULT_BLINK_CHANNEL  CM_AUXRED
+
+#define FACTORY_RESET_WARN_CHANNEL     CM_AUXRED
+#define FACTORY_RESET_SUCCESS_CHANNEL  CM_MAIN
+
+#define CONFIG_WAITING_CHANNEL         CM_AUXGRN
+#define CONFIG_BLINK_CHANNEL           CM_MAIN
 
 // slow down party strobe; this driver can't pulse for 1ms or less
 // (only needed on no-FET build)
