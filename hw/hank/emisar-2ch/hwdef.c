@@ -37,16 +37,6 @@ Channel channels[] = {
         .gradual_tick = gradual_tick_both,
         .has_args     = 0
     },
-    { // both channels, manual blend (max "100%" power)
-        .set_level    = set_level_blend,
-        .gradual_tick = gradual_tick_blend,
-        .has_args     = 1
-    },
-    { // both channels, auto blend
-        .set_level    = set_level_auto,
-        .gradual_tick = gradual_tick_auto,
-        .has_args     = 1
-    },
     RGB_AUX_CHANNELS
 };
 
