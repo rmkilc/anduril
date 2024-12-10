@@ -13,8 +13,10 @@
 
 // this light has three aux LED channels: R, G, B
 #define USE_AUX_RGB_LEDS
-#define USE_AUX_RGB_LEDS_WHILE_ON  5
-#define USE_INDICATOR_LED_WHILE_RAMPING
+//#define USE_AUX_RGB_LEDS_WHILE_ON  5
+#ifdef USE_INDICATOR_LED_WHILE_RAMPING
+#undef USE_INDICATOR_LED_WHILE_RAMPING
+#endif
 
 
 #define RAMP_SIZE 150
@@ -66,10 +68,22 @@
 
 // there is usually no lighted button,
 // so blink numbers on the main LEDs by default (but allow user to change it)
-#define DEFAULT_BLINK_CHANNEL  CM_MAIN
+#define DEFAULT_BLINK_CHANNEL  CM_AUXRED
+
+#define FACTORY_RESET_WARN_CHANNEL     CM_AUXRED
+#define FACTORY_RESET_SUCCESS_CHANNEL  CM_MAIN
+
+#define CONFIG_WAITING_CHANNEL         CM_AUXGRN
+#define CONFIG_BLINK_CHANNEL           CM_MAIN
 
 // slow down party strobe; this driver can't pulse for 1ms or less
 #define PARTY_STROBE_ONTIME 2
+
+// use aux red + aux blue for police strobe
+#define USE_POLICE_COLOR_STROBE_MODE
+#define POLICE_STROBE_USES_AUX
+#define POLICE_COLOR_STROBE_CH1        CM_AUXRED
+#define POLICE_COLOR_STROBE_CH2        CM_AUXBLU
 
 // make candle mode wobble more
 #define CANDLE_AMPLITUDE 32
