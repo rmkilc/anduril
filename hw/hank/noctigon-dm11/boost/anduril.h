@@ -6,6 +6,15 @@
 #include "hank/noctigon-dm11/boost/hwdef.h"
 #include "hank/anduril.h"
 
+// this light has three aux LED channels: R, G, B
+#define USE_AUX_RGB_LEDS
+// it also has an independent LED in the button
+#define USE_BUTTON_LED
+// the aux LEDs are front-facing, so turn them off while main LEDs are on
+#ifdef USE_INDICATOR_LED_WHILE_RAMPING
+#undef USE_INDICATOR_LED_WHILE_RAMPING
+#endif
+
 #define RAMP_SIZE 150
 
 // power channels:
@@ -67,7 +76,13 @@
 #define USE_CONFIG_COLORS
 
 // blink numbers on the main LEDs by default (but allow user to change it)
-#define DEFAULT_BLINK_CHANNEL  CM_MAIN
+#define DEFAULT_BLINK_CHANNEL  CM_AUXRED
+
+#define FACTORY_RESET_WARN_CHANNEL     CM_AUXRED
+#define FACTORY_RESET_SUCCESS_CHANNEL  CM_MAIN
+
+#define CONFIG_WAITING_CHANNEL         CM_AUXGRN
+#define CONFIG_BLINK_CHANNEL           CM_MAIN
 
 // slow down party strobe; this driver can't pulse for 2ms or less
 #define PARTY_STROBE_ONTIME 3
