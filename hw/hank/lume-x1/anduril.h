@@ -87,7 +87,13 @@
 #define USE_CONFIG_COLORS
 
 // blink numbers on the main LEDs by default (but allow user to change it)
-#define DEFAULT_BLINK_CHANNEL  CM_MAIN
+#define DEFAULT_BLINK_CHANNEL  CM_AUXRED
+
+#define FACTORY_RESET_WARN_CHANNEL     CM_AUXRED
+#define FACTORY_RESET_SUCCESS_CHANNEL  CM_MAIN
+
+#define CONFIG_WAITING_CHANNEL         CM_AUXGRN
+#define CONFIG_BLINK_CHANNEL           CM_MAIN
 
 // use aux red + aux blue for police strobe
 #define USE_POLICE_COLOR_STROBE_MODE
@@ -110,5 +116,5 @@
 #define USE_VOLTAGE_LOWPASS
 
 // enable long-blink as negative sign
-#define USE_LONG_BLINK_FOR_NEGATIVE_SIGN
+//#define USE_LONG_BLINK_FOR_NEGATIVE_SIGN
 
