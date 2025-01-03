@@ -116,16 +116,6 @@ uint8_t ch1_pwm, ch1_dsm;
 #define BUTTON_LED_DDR  DDRA   // for all "PA" pins
 #define BUTTON_LED_PUE  PUEA   // for all "PA" pins
 
-// this light has three aux LED channels: R, G, B
-#define USE_AUX_RGB_LEDS
-// it also has an independent LED in the button
-#define USE_BUTTON_LED
-// the aux LEDs are front-facing, so turn them off while main LEDs are on
-#ifdef USE_INDICATOR_LED_WHILE_RAMPING
-#undef USE_INDICATOR_LED_WHILE_RAMPING
-#endif
-
-
 inline void hwdef_setup() {
     // enable output ports
     // boost PMIC on/off
