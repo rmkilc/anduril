@@ -48,7 +48,7 @@
 // to avoid overloading firmware flashing adapters
 #define WEAK_BATTERY_TEST_MAX_LEVEL       75
 
-#define RAMP_SMOOTH_FLOOR    1
+#define RAMP_SMOOTH_FLOOR    4
 #define RAMP_SMOOTH_CEIL     130  // 50% power
 // 10 30 [50] 70 90 110 130
 #define RAMP_DISCRETE_FLOOR  10
@@ -75,9 +75,9 @@
 // UI
 
 // Allow 3C in Simple UI for switching between smooth and stepped ramping
-#define USE_SIMPLE_UI_RAMPING_TOGGLE
+//#define USE_SIMPLE_UI_RAMPING_TOGGLE
 
-#define DEFAULT_2C_STYLE 1 // enable 2 click turbo
+//#define DEFAULT_2C_STYLE 1 // enable 2 click turbo
 
 
 // AUX
@@ -91,7 +91,13 @@
 #define USE_CONFIG_COLORS
 
 // blink numbers on the main LEDs by default (but allow user to change it)
-#define DEFAULT_BLINK_CHANNEL  CM_MAIN
+#define DEFAULT_BLINK_CHANNEL  CM_AUXRED
+
+#define FACTORY_RESET_WARN_CHANNEL     CM_AUXRED
+#define FACTORY_RESET_SUCCESS_CHANNEL  CM_MAIN
+
+#define CONFIG_WAITING_CHANNEL         CM_AUXGRN
+#define CONFIG_BLINK_CHANNEL           CM_MAIN
 
 // use aux red + aux blue for police strobe
 #define USE_POLICE_COLOR_STROBE_MODE
