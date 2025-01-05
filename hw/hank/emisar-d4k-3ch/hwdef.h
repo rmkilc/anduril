@@ -50,29 +50,20 @@
 // - 7. 3ch blend (HSV style)
 // - 8. 3ch auto blend (red-warm-cool style, led4-led3-main2)
 // - 9+. RGB aux (hidden)
-#define NUM_CHANNEL_MODES   (8 + NUM_RGB_AUX_CHANNEL_MODES)
+#define NUM_CHANNEL_MODES   (3 + NUM_RGB_AUX_CHANNEL_MODES)
 enum channel_modes_e {
     CM_MAIN2 = 0,
     CM_LED3,
     CM_LED4,
-    CM_ALL,
-    CM_BLEND34A,  // 8 / [16+16]
-    CM_BLEND34B,  // 16 / [16+8]
-    CM_HSV,
-    CM_AUTO3,
     RGB_AUX_ENUMS
 };
 
-#define CHANNEL_MODES_ENABLED 0b0000000000001111
+#define CHANNEL_MODES_ENABLED 0b0000000000000111
 #define USE_CHANNEL_MODE_ARGS
 // _, _, _, _, 128=middle CCT, 128=middle CCT, 213=purple, _
-#define CHANNEL_MODE_ARGS 0,0,0,0,128,128,213,0,RGB_AUX_CM_ARGS
+#define CHANNEL_MODE_ARGS 0,0,0,RGB_AUX_CM_ARGS
 #define USE_CUSTOM_CHANNEL_3H_MODES
 #define USE_CIRCULAR_TINT_3H
-
-// can use some of the common handlers
-#define USE_CALC_2CH_BLEND
-#define USE_HSV2RGB
 
 
 #define PWM_CHANNELS 1  // old, remove this
