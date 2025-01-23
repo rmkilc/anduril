@@ -8,32 +8,35 @@
 
 // this light has three aux LED channels: R, G, B
 #define USE_AUX_RGB_LEDS
+#define USE_BUTTON_LED
 
 // turn on the aux LEDs while main LEDs are on
 // (in case there's a RGB button)
-#define USE_AUX_RGB_LEDS_WHILE_ON  40
-#define USE_INDICATOR_LED_WHILE_RAMPING
+#ifdef USE_INDICATOR_LED_WHILE_RAMPING
+#undef USE_INDICATOR_LED_WHILE_RAMPING
+#endif
 
 // channel modes...
 // CM_MAIN2, CM_LED3, CM_LED4, CM_ALL,
 // CM_BLEND34A, CM_BLEND34B, CM_HSV, CM_AUTO3
-#define DEFAULT_CHANNEL_MODE           CM_ALL
+#define DEFAULT_CHANNEL_MODE           CM_MAIN2
 
-#define FACTORY_RESET_WARN_CHANNEL     CM_LED4
+#define FACTORY_RESET_WARN_CHANNEL     CM_AUXRED
 #define FACTORY_RESET_SUCCESS_CHANNEL  CM_MAIN2
 
-#define CONFIG_WAITING_CHANNEL         CM_LED3
-#define CONFIG_BLINK_CHANNEL           CM_ALL
+#define CONFIG_WAITING_CHANNEL         CM_AUXGRN
+#define CONFIG_BLINK_CHANNEL           CM_MAIN2
 
 // blink numbers on the main LEDs by default (but allow user to change it)
-#define DEFAULT_BLINK_CHANNEL          CM_MAIN2
+#define DEFAULT_BLINK_CHANNEL          CM_AUXRED
 
 // LEDs 3 and 4 make a nice police strobe
-#define POLICE_COLOR_STROBE_CH1        CM_LED3
-#define POLICE_COLOR_STROBE_CH2        CM_LED4
+//#define POLICE_COLOR_STROBE_CH1        CM_LED3
+//#define POLICE_COLOR_STROBE_CH2        CM_LED4
 // aux red + aux blue are the correct colors, but are dim
-//#define POLICE_COLOR_STROBE_CH1        CM_AUXRED
-//#define POLICE_COLOR_STROBE_CH2        CM_AUXBLU
+#define POLICE_STROBE_USES_AUX
+#define POLICE_COLOR_STROBE_CH1        CM_AUXRED
+#define POLICE_COLOR_STROBE_CH2        CM_AUXBLU
 
 // how much to increase total brightness at middle tint
 // (0 = 100% brightness, 64 = 200% brightness)
