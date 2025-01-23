@@ -12,14 +12,10 @@ void set_level_zero();
 void set_level_ch1(uint8_t level);
 void set_level_ch2(uint8_t level);
 void set_level_both(uint8_t level);
-void set_level_blend(uint8_t level);
-void set_level_auto(uint8_t level);
 
 bool gradual_tick_ch1(uint8_t gt);
 bool gradual_tick_ch2(uint8_t gt);
 bool gradual_tick_both(uint8_t gt);
-bool gradual_tick_blend(uint8_t gt);
-bool gradual_tick_auto(uint8_t gt);
 
 
 Channel channels[] = {
@@ -37,16 +33,6 @@ Channel channels[] = {
         .set_level    = set_level_both,
         .gradual_tick = gradual_tick_both,
         .has_args     = 0
-    },
-    { // both channels, manual blend (max "100%" power)
-        .set_level    = set_level_blend,
-        .gradual_tick = gradual_tick_blend,
-        .has_args     = 1
-    },
-    { // both channels, auto blend
-        .set_level    = set_level_auto,
-        .gradual_tick = gradual_tick_auto,
-        .has_args     = 1
     },
     RGB_AUX_CHANNELS
 };
@@ -118,32 +104,6 @@ void set_level_both(uint8_t level) {
     set_pwms(pwm1, pwm1, pwm3, top);
 }
 
-void set_level_blend(uint8_t level) {
-    uint16_t pwm1, pwm2;
-    uint8_t  pwm3       = PWM_GET8 (pwm2_levels, level);  // DD FET
-    //uint16_t brightness = PWM_GET8 (pwm1_levels, level) << 1;
-    uint16_t brightness = PWM_GET8 (pwm1_levels, level) + pwm3;
-    uint16_t top        = PWM_GET16(pwm3_levels, level);
-    uint8_t  blend      = cfg.channel_mode_args[channel_mode];
-
-    calc_2ch_blend(&pwm1, &pwm2, brightness, top, blend);
-
-    set_pwms(pwm1, pwm2, pwm3, top);
-}
-
-void set_level_auto(uint8_t level) {
-    uint16_t pwm1, pwm2;
-    uint8_t  brightness = PWM_GET8 (pwm4_levels, level);
-    uint16_t top        = PWM_GET16(pwm5_levels, level);
-    uint8_t  blend      = 255 * (uint16_t)level / RAMP_SIZE;
-    if (cfg.channel_mode_args[channel_mode] & 0b01000000)
-        blend = 255 - blend;
-
-    calc_2ch_blend(&pwm1, &pwm2, brightness, top, blend);
-
-    set_pwms(pwm1, pwm2, 0, top);
-}
-
 
 ///// bump each channel toward a target value /////
 bool gradual_adjust(uint8_t ch1_pwm, uint8_t ch2_pwm, uint8_t ch3_pwm) {
@@ -175,32 +135,6 @@ bool gradual_tick_both(uint8_t gt) {
     uint8_t pwm1 = PWM_GET8(pwm1_levels, gt);
     uint8_t pwm3 = PWM_GET8(pwm2_levels, gt);
     return gradual_adjust(pwm1, pwm1, pwm3);
-}
-
-bool gradual_tick_blend(uint8_t level) {
-    uint16_t pwm1, pwm2;
-    uint8_t  pwm3       = PWM_GET8 (pwm2_levels, level);  // DD FET
-    //uint16_t brightness = PWM_GET8 (pwm1_levels, level) << 1;
-    uint16_t brightness = PWM_GET8 (pwm1_levels, level) + pwm3;
-    uint16_t top        = PWM_GET16(pwm3_levels, level);
-    uint8_t  blend      = cfg.channel_mode_args[channel_mode];
-
-    calc_2ch_blend(&pwm1, &pwm2, brightness, top, blend);
-
-    return gradual_adjust(pwm1, pwm2, pwm3);
-}
-
-bool gradual_tick_auto(uint8_t level) {
-    uint16_t pwm1, pwm2;
-    uint8_t  brightness = PWM_GET8 (pwm4_levels, level);
-    uint16_t top        = PWM_GET16(pwm5_levels, level);
-    uint8_t  blend      = 255 * (uint16_t)level / RAMP_SIZE;
-    if (cfg.channel_mode_args[channel_mode] & 0b01000000)
-        blend = 255 - blend;
-
-    calc_2ch_blend(&pwm1, &pwm2, brightness, top, blend);
-
-    return gradual_adjust(pwm1, pwm2, 0);
 }
 
 
