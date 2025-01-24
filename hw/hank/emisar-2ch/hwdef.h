@@ -42,21 +42,20 @@
 // * 2. both channels, tied together, max "200%" power
 // * 3. both channels, manual blend, max "100%" power
 // * 4. both channels, auto blend, reversible
-#define NUM_CHANNEL_MODES   (5 + NUM_RGB_AUX_CHANNEL_MODES)
+#define NUM_CHANNEL_MODES   (4 + NUM_RGB_AUX_CHANNEL_MODES)
 enum channel_modes_e {
     CM_CH1 = 0,
     CM_CH2,
     CM_BOTH,
     CM_BLEND,
-    CM_AUTO,
     RGB_AUX_ENUMS
 };
 
 // right-most bit first, modes are in fedcba9876543210 order
-#define CHANNEL_MODES_ENABLED 0b0000000000011111
+#define CHANNEL_MODES_ENABLED 0b0000000000001111
 #define USE_CHANNEL_MODE_ARGS
 // _, _, _, 128=middle CCT, 0=warm-to-cool
-#define CHANNEL_MODE_ARGS     0,0,0,128,0,RGB_AUX_CM_ARGS
+#define CHANNEL_MODE_ARGS     0,0,0,128,RGB_AUX_CM_ARGS
 
 // can use some of the common handlers
 #define USE_CALC_2CH_BLEND
