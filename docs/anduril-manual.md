@@ -501,6 +501,10 @@ The voltage config menu has these settings:
      mode while the main LEDs are on.  
      Also controls brightness of post-off voltage display.
 
+  5. Aux while on.  Determines which aux LEDs will be lit up while the main
+     LEDs are on, like in ramping mode:  
+     0 = none, 1 = single color aux only, 2 = RGB aux only, 3 = both.
+
 ### Temperature check:
 
 Blinks out the current temperature in degrees C.  This number should
@@ -908,6 +912,75 @@ The aux LEDs on most lights only turn on when the light is asleep.
 When a light has a single-color aux LED and no RGB, it fast-blinks the
 aux LED in "off" modes when voltage is low.
 
+The aux LED behavior can be configured further by entering the Voltage Config
+Menu inside of Batt Check mode.
+
+
+Post-Off Voltage Display (POVD)
+-------------------------------
+
+Many lights with RGB aux LEDs will display the battery voltage by color for
+a few seconds after going to "Off" mode.  This provides a quick, easy way to
+keep track of the battery status without any extra button clicks.
+
+The typical and intended use pattern is:  Turn the light off, then the color
+indicates battery status for a few seconds, and then the aux LEDs go to their
+configured standby pattern (usually low brightness, in voltage mode, by
+default).  This makes it easier to see the color, since the colors are
+balanced in hardware according to how they look in high mode, and may be
+harder to discern in low mode.  It lasts only a few seconds though, because
+leaving them bright all the time would drain the battery much, much faster.
+
+POVD brightness is determined by your config settings and previous main LED
+ramp level.  It uses the *first* matching condition:
+
+- If the standby aux brightness is high, POVD uses high aux too.
+- If the main LEDs were above the "aux high ramp level", POVD uses high aux.
+- If the main LEDs were above the "aux low ramp level", POVD uses low aux.
+- If the main LEDs were below the "aux low ramp level", POVD is black.
+
+The aux high/low ramp levels are configurable on most lights with RGB, using
+the Voltage Config Menu in Batt Check mode.
+
+Note: Voltage is monitored and updated continuously during POVD, so the color
+may change.  This happens particularly when turning off from a high or turbo
+mode, because the high load causes a lot of battery sag... and the battery
+recovers quickly during the first few seconds after load is removed.  It is
+normal for battery voltage to measure low during and immediately after turbo,
+but it should recover soon afterward.
+
+
+Smooth POVD
+-----------
+
+Some lights have the ability to dim the RGB aux LEDs beyond just
+high/low/off.  On these lights, the POVD mode fades in, displays voltage by
+color with much higher resolution, then fades out.  The additional color
+resolution is also used while the main LEDs are on, if you have "RGB aux
+while on" enabled.
+
+The original / passive POVD mode has just 6 colors during normal use: red,
+yellow, green, cyan, blue, and purple.  These are created by turning
+red/green/blue LEDs on and off.  Smooth POVD has a full rainbow, with
+a different shade for every possible voltage value.  The colors go in the
+same order and indicate the same voltage ranges, but instead of 6 main
+shades, it has more like 60 shades.  (from 3.00V to 4.20V, in 0.02V steps,
+that works out to ~60 different colors)  So after getting a feel for it, the
+user may be able to tell the battery voltage within 0.02V or 0.04V, just
+based on what color the POVD mode shows.
+
+After the main POVD readout finishes, the aux LEDs resume their configured
+standby mode, and may change color if using the "voltage" mode on a light
+with passive aux LEDs.  Typically, it settles down to the nearest of the main
+6 shades, but this depends on the exact hardware model.  It depends on
+whether the hardware generates RGB PWM from the main MCU chip, or if it has
+an external aux control chip.
+
+The brightness of Smooth POVD mode uses the same configuration as regular
+POVD mode.  The "aux low ramp level" and "aux high ramp level" mostly work
+the same, except the brightness ramps between the two.  The same brightness
+ramp applies in that range during regular "on" modes, if enabled.
+
 
 Misc Config Menu
 ----------------
@@ -1141,6 +1214,11 @@ This is a table of all button mappings in Anduril, in one place:
 |                |        |         | 4: aux high ramp level
 |                |        |         | ... 0: disabled
 |                |        |         | ... 1+: brighter at this ramp level
+|                |        |         | 5: aux while on
+|                |        |         | ... 0: disabled
+|                |        |         | ... 1: single-color aux only
+|                |        |         | ... 2: RGB aux only
+|                |        |         | ... 3: both
 
 | Mode           | UI     | Button  | Action
 | :---           | :--    | ------: | :-----
