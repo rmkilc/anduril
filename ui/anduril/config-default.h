@@ -42,7 +42,7 @@
 #define USE_THERM_AUTOCALIBRATE
 
 // Include a simplified UI for non-enthusiasts?
-#define USE_SIMPLE_UI
+//#define USE_SIMPLE_UI
 
 
 ///// Ramp mode options /////
@@ -159,7 +159,7 @@
 
 // enable/disable various strobe modes
 #define USE_BIKE_FLASHER_MODE
-#define USE_PARTY_STROBE_MODE
+//#define USE_PARTY_STROBE_MODE
 #define USE_TACTICAL_STROBE_MODE
 #define USE_LIGHTNING_MODE
 #define USE_CANDLE_MODE
@@ -180,10 +180,10 @@
 #define USE_AUTOLOCK
 
 // enable momentary mode
-#define USE_MOMENTARY_MODE
+//#define USE_MOMENTARY_MODE
 
 // enable tactical mode
-#define USE_TACTICAL_MODE
+//#define USE_TACTICAL_MODE
 
 
 // enable a shortcut for +10 in number entry mode
