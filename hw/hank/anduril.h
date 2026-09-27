@@ -15,9 +15,9 @@
 #undef RGB_LED_LOCkOUT_DEFAULT
 #endif
 #define RGB_LED_OFF_DEFAULT \
-    auxrgb_cfg_byte(aux_low_e, aux_rgb_rainbow_e)
+    auxrgb_cfg_byte(aux_high_e, aux_rgb_red_e)
 #define RGB_LED_LOCKOUT_DEFAULT \
-    auxrgb_cfg_byte(aux_blinking_e, aux_rgb_voltage_e)
+    auxrgb_cfg_byte(aux_off_e, aux_rgb_red_e)
 
 // half a second per color in rainbow mode
 //#define RGB_RAINBOW_SPEED 0x03
